@@ -76,6 +76,7 @@ function getContent($urlExtArr)
     $success = $error = 0;
 
     $all = '';
+    $unknow = 1;
     foreach ($urlExtArr as $urlExt) {
         $url = $urlPre . $urlExt;
         $content = @file_get_contents(HTML_PATH . "/$urlExt");
@@ -83,7 +84,7 @@ function getContent($urlExtArr)
 
             $html = '';
             preg_match('/<h4>(.*?)<\/h4>/i', $content, $match);
-            $categroy = $match[1] ?: '未知分类';
+            $categroy = $match[1] ?: '未知分类' . $unknow++;
             $dir = "./$categroy";
             @mkdir($dir);
             $html .= "<h4>$categroy</h4>";
